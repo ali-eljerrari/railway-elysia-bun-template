@@ -3,9 +3,12 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build --compile --minify --sourcemap ./src/index.ts --outfile ./dist/elysia-server",
+    "start": "./dist/elysia-server"
   },
   "dependencies": {
+    "@elysiajs/swagger": "^1.3.0",
     "elysia": "latest"
   },
   "devDependencies": {
