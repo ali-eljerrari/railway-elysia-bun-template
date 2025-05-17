@@ -137,7 +137,7 @@ const app = new Elysia()
       description: "Connect to receive real-time updates when users are created, updated, or deleted"
     }
   })
-  .get("/", () => "Hello Elysia")
+  .get("/", () => "Hello Elysia, explore the swagger documentation at /api/v1/docs")
   .get("/health", () => "OK")
   // Group all API routes under /api prefix
   .group("/api", (app) => 
