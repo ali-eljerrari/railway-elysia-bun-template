@@ -136,4 +136,4 @@ For production deployment, you may want to use Docker Compose or Kubernetes for 
 
 Click the button below to deploy instantly on [Railway](https://railway.app/):
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/-6vLXh?referralCode=6XQcnk)
