@@ -137,6 +137,8 @@ const app = new Elysia()
       description: "Connect to receive real-time updates when users are created, updated, or deleted"
     }
   })
+  .get("/", () => "Hello Elysia")
+  .get("/health", () => "OK")
   // Group all API routes under /api prefix
   .group("/api", (app) => 
     app
