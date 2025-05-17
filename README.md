@@ -1,29 +1,123 @@
-# Static Website Deployment with Caddy Server
+# Elysia User Management API
 
-This template deploys a static website using the [Caddy](https://caddyserver.com) server and works seamlessly with both [Railway](https://railway.app/?referralCode=alphasec) and [DigitalOcean](https://m.do.co/c/5552e11c260f). By default, the `site/` directory gets deployed as a static site. This can be modified by changing the Dockerfile.
+A full-featured RESTful API built with Elysia and Bun, featuring user management with real-time WebSocket notifications.
 
-### 🚀 Deploy on Railway
+## Features
 
-For a step-by-step guide, see [this tutorial](https://alphasec.io/how-to-deploy-a-static-website-with-caddy-on-railway/), or click the button below to deploy instantly on [Railway](https://railway.app/?referralCode=alphasec).
+- **Complete User CRUD Operations**
+  - Create, read, update, and delete users
+  - Proper HTTP status codes (201 for creation, 404 for not found, etc.)
+  - In-memory storage with demo users
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/TETV8z?referralCode=alphasec)
+- **WebSocket Real-time Updates**
+  - Connect to receive live updates when users are modified
+  - Notifications for user creation, updates, and deletion
+  - Event-based architecture for real-time applications
 
-### ☁️ Deploy on DigitalOcean
+- **Swagger Documentation**
+  - Interactive API documentation
+  - Try endpoints directly from the browser
+  - Clear request/response schemas
 
-Although this repo is optimized for Railway, the same setup can be deployed to [DigitalOcean](https://m.do.co/c/5552e11c260f) using App Platform or a custom droplet. Follow [this guide](https://alphasec.io/how-to-deploy-a-static-website-with-caddy-on-digitalocean/) for detailed instructions.
+## API Endpoints
 
-# Elysia with Bun runtime
+### General Endpoints
+- `GET /` - Welcome message
+- `GET /health` - Health check endpoint
+- `GET /api/v1/docs` - Swagger documentation
+
+### User Endpoints
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get a specific user
+- `POST /api/users` - Create a new user
+- `PUT /api/users/:id` - Update a user
+- `DELETE /api/users/:id` - Delete a user
+
+### WebSocket Connection
+- `WebSocket /ws/users` - Connect to receive real-time user updates
 
 ## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
-```
 
-## Development
-To start the development server run:
+To get started with this application, follow these steps:
+
 ```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to the project directory
+cd elysia-user-api
+
+# Install dependencies
+bun install
+
+# Start the development server
 bun run dev
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+The server will start at http://localhost:3000.
+The Swagger documentation is available at http://localhost:3000/api/v1/docs.
+
+## WebSocket Usage Example
+
+### JavaScript Client
+
+```javascript
+// Connect to the WebSocket endpoint
+const socket = new WebSocket('ws://localhost:3000/ws/users');
+
+// Handle connection open
+socket.onopen = () => {
+  console.log('Connected to WebSocket');
+};
+
+// Handle incoming messages
+socket.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log('User event received:', data);
+  
+  // Handle different event types
+  switch(data.type) {
+    case 'created':
+      console.log('New user created:', data.user);
+      break;
+    case 'updated':
+      console.log('User updated:', data.user);
+      break;
+    case 'deleted':
+      console.log('User deleted:', data.user);
+      break;
+  }
+};
+```
+
+## Data Structures
+
+### User Object
+
+```typescript
+interface User {
+  id: string;       // Unique identifier
+  name: string;     // User's name
+  email: string;    // User's email address  
+  createdAt: Date;  // Timestamp of creation
+}
+```
+
+### WebSocket Event
+
+```typescript
+type UserEvent = {
+  type: 'created' | 'updated' | 'deleted';  // Event type
+  user: User;                               // The affected user
+};
+```
+
+## Deployment
+
+This template is ready to deploy to platforms like Railway and DigitalOcean with minimal configuration.
+
+### 🚀 Deploy on Railway
+
+Click the button below to deploy instantly on [Railway](https://railway.app/):
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template)
