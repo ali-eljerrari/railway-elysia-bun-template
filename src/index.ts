@@ -1,5 +1,8 @@
 import { Elysia, t } from "elysia";
 import { swagger } from "@elysiajs/swagger";
+import "dotenv/config";
+
+const PORT = process.env.PORT || 3000;
 
 /**
  * User entity definition
@@ -303,7 +306,7 @@ const app = new Elysia()
         }),
       })
   )
-  .listen(3000);
+  .listen(PORT);
 
 // Log application start information
 console.log(

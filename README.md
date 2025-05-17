@@ -116,6 +116,22 @@ type UserEvent = {
 
 This template is ready to deploy to platforms like Railway and DigitalOcean with minimal configuration.
 
+### 🐳 Docker Deployment
+
+This project includes a Dockerfile for containerized deployment. Follow these steps to build and run the Docker container:
+
+```bash
+# Build the Docker image
+docker build -t elysia-user-api .
+
+# Run the container
+docker run -p 3000:3000 elysia-user-api
+```
+
+The API will be available at http://localhost:3000.
+
+For production deployment, you may want to use Docker Compose or Kubernetes for better container orchestration.
+
 ### 🚀 Deploy on Railway
 
 Click the button below to deploy instantly on [Railway](https://railway.app/):
