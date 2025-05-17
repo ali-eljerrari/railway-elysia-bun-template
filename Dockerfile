@@ -11,7 +11,6 @@ RUN bun install
 
 # Copy source code
 COPY src ./src
-COPY public ./public
 
 # Set environment variables
 ARG PORT=3000
