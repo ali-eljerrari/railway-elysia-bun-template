@@ -1,4 +1,4 @@
-import { Elysia } from 'elysia';
+import { Elysia, t } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
 
 // Import all our MVVM components
@@ -70,6 +70,11 @@ app.get(
       tags: ['General'],
       description: 'Root endpoint with API information and links',
     },
+    headers: t.Object({
+      authorization: t.String({
+        description: 'API key for authentication',
+      }),
+    }),
   }
 );
 
@@ -163,6 +168,11 @@ app.get(
       tags: ['General'],
       description: 'API information and available endpoints',
     },
+    headers: t.Object({
+      authorization: t.String({
+        description: 'API key for authentication',
+      }),
+    }),
   }
 );
 

@@ -30,6 +30,11 @@ export class UserController {
           tags: ['Users'],
           description: 'Retrieve all users from the system',
         },
+        headers: t.Object({
+          authorization: t.String({
+            description: 'API key for authentication',
+          }),
+        }),
       })
       .get('/api/v1/users/stats', this.getUserStats.bind(this), {
         apiKey: API_KEY,
@@ -39,6 +44,11 @@ export class UserController {
           description:
             'Get system statistics including user count and active connections',
         },
+        headers: t.Object({
+          authorization: t.String({
+            description: 'API key for authentication',
+          }),
+        }),
       })
       .get('/api/v1/users/:id', this.getUserById.bind(this), {
         apiKey: API_KEY,
@@ -47,6 +57,11 @@ export class UserController {
           tags: ['Users'],
           description: 'Retrieve a specific user by their unique identifier',
         },
+        headers: t.Object({
+          authorization: t.String({
+            description: 'API key for authentication',
+          }),
+        }),
         params: t.Object({
           id: t.String({
             description: 'Unique identifier of the user',
@@ -60,6 +75,11 @@ export class UserController {
           tags: ['Users'],
           description: 'Create a new user with the provided information',
         },
+        headers: t.Object({
+          authorization: t.String({
+            description: 'API key for authentication',
+          }),
+        }),
         body: t.Object({
           name: t.String({
             description: 'Full name of the user',
@@ -78,6 +98,11 @@ export class UserController {
           tags: ['Users'],
           description: "Update an existing user's information",
         },
+        headers: t.Object({
+          authorization: t.String({
+            description: 'API key for authentication',
+          }),
+        }),
         params: t.Object({
           id: t.String({
             description: 'Unique identifier of the user to update',
@@ -105,6 +130,11 @@ export class UserController {
           tags: ['Users'],
           description: 'Delete a user from the system',
         },
+        headers: t.Object({
+          authorization: t.String({
+            description: 'API key for authentication',
+          }),
+        }),
         params: t.Object({
           id: t.String({
             description: 'Unique identifier of the user to delete',
@@ -121,6 +151,11 @@ export class UserController {
             tags: ['Users'],
             description: 'Retrieve users with pagination support',
           },
+          headers: t.Object({
+            authorization: t.String({
+              description: 'API key for authentication',
+            }),
+          }),
           params: t.Object({
             offset: t.String({
               description: 'Number of users to skip',
