@@ -48,8 +48,11 @@ USER appuser
 EXPOSE 3000
 
 # Set environment variables
-ENV NODE_ENV=production
-ENV PORT=3000
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+ARG PORT
+ENV PORT=${PORT}
+
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \

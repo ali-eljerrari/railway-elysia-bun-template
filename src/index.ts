@@ -6,9 +6,12 @@ import { UserRepository } from './repositories/UserRepository';
 import { UserService } from './services/UserService';
 import { UserController } from './controllers/UserController';
 import { WebSocketManager } from './utils/WebSocketManager';
+import { apiKey } from './utils/apikey';
+import { VARS } from './constants';
 
 // Environment configuration
-const PORT = Bun.env.PORT || 3000;
+const PORT = VARS.find((v) => v.name === 'PORT')?.value;
+const API_KEY = VARS.find((v) => v.name === 'API_KEY')?.value;
 
 // Initialize application components
 const wsManager = WebSocketManager.getInstance();
@@ -18,6 +21,8 @@ const userController = new UserController(userService);
 
 // Initialize and configure Elysia app
 const app = new Elysia();
+
+app.use(apiKey);
 
 // Configure Swagger documentation
 app.use(
@@ -59,6 +64,7 @@ app.get(
     architecture: 'MVVM',
   }),
   {
+    apiKey: API_KEY,
     detail: {
       summary: 'Welcome endpoint',
       tags: ['General'],
@@ -77,6 +83,7 @@ app.get(
     connections: wsManager.getConnectionCount(),
   }),
   {
+    apiKey: API_KEY,
     detail: {
       summary: 'Health check endpoint',
       tags: ['General'],
@@ -151,6 +158,7 @@ app.get(
     },
   }),
   {
+    apiKey: API_KEY,
     detail: {
       summary: 'API root endpoint',
       tags: ['General'],
@@ -163,7 +171,7 @@ app.get(
 userController.registerRoutes(app);
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT!, () => {
   // Log application start information
   console.log('\n🚀 Elysia User Management API Started');
   console.log('='.repeat(50));

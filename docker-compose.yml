@@ -14,6 +14,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
+      - API_KEY=${API_KEY}
     profiles:
       - dev
 
@@ -27,6 +28,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - API_KEY=${API_KEY}
     restart: unless-stopped
     profiles:
       - prod
@@ -41,6 +43,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - API_KEY=${API_KEY}
     restart: unless-stopped
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
