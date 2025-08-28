@@ -10,11 +10,6 @@ import { WebSocketManager } from './utils/WebSocketManager';
 // Environment configuration
 const PORT = Bun.env.PORT || 3000;
 
-if (!PORT) {
-  console.error('PORT is not set');
-  process.exit(1);
-}
-
 // Initialize application components
 const wsManager = WebSocketManager.getInstance();
 const userRepository = new UserRepository();
@@ -27,7 +22,7 @@ const app = new Elysia();
 // Configure Swagger documentation
 app.use(
   swagger({
-    path: '/api/v1/docs',
+    path: '/docs',
     documentation: {
       info: {
         title: 'Elysia User Management API',
@@ -58,7 +53,7 @@ app.get(
   '/',
   () => ({
     message: 'Welcome to Elysia User Management API',
-    documentation: '/api/v1/docs',
+    documentation: '/docs',
     websocket: '/ws/v1/users',
     version: '1.0.0',
     architecture: 'MVVM',
@@ -151,7 +146,7 @@ app.get(
     version: '1.0.0',
     endpoints: {
       users: '/api/v1/users',
-      documentation: '/api/v1/docs',
+      documentation: '/docs',
       websocket: '/ws/v1/users',
     },
   }),
@@ -173,7 +168,7 @@ app.listen(PORT, () => {
   console.log('\n🚀 Elysia User Management API Started');
   console.log('='.repeat(50));
   console.log(`🦊 Server: http://localhost:${PORT}`);
-  console.log(`📚 Documentation: http://localhost:${PORT}/api/v1/docs`);
+  console.log(`📚 Documentation: http://localhost:${PORT}/docs`);
   console.log(`🔌 WebSocket: ws://localhost:${PORT}/ws/v1/users`);
   console.log(`📚 Users Endpoints: http://localhost:${PORT}/api/v1/users`);
   console.log(`🏗️  Architecture: MVVM (Model-View-ViewModel)`);
@@ -205,4 +200,4 @@ process.on('SIGTERM', async () => {
 });
 
 // Export app for testing purposes
-export default app;
+// export default app; //! BUG: Throws ADDRINUSE error

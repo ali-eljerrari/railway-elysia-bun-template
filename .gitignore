@@ -42,3 +42,6 @@ package-lock.json
 **/*.bun
 dist/elysia-server
 .env
+docker-build.sh
+DOCKER.md
+docker-build.bat
