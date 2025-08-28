@@ -95,9 +95,10 @@ const wsManager = new WebSocketManager();
  * Initialize Elysia application
  * Set up API routes, WebSocket endpoint, and Swagger documentation
  */
-const app = new Elysia()
+const ElysiaApp = new Elysia();
+
   // Configure Swagger documentation
-  .use(
+  ElysiaApp.use(
     swagger({
       path: "/api/v1/docs",
       documentation: {
@@ -124,7 +125,7 @@ const app = new Elysia()
     })
   )
   // WebSocket connection for real-time user events
-  .ws("/ws/users", {
+  ElysiaApp.ws("/ws/users", {
     open(ws) {
       console.log("WebSocket connection opened");
       wsManager.addConnection(ws);
@@ -145,13 +146,13 @@ const app = new Elysia()
         "Connect to receive real-time updates when users are created, updated, or deleted",
     },
   })
-  .get(
+  ElysiaApp.get(
     "/",
     () => "Hello Elysia, explore the swagger documentation at /api/v1/docs"
   )
-  .get("/health", () => "OK")
+  ElysiaApp.get("/health", () => "OK")
   // Group all API routes under /api prefix
-  .group("/api", (app) =>
+  ElysiaApp.group("/api", (app) =>
     app
       // Root endpoint - simple welcome message
       .get("/", () => "Hello Elysia", {
@@ -340,11 +341,11 @@ const app = new Elysia()
 
 // Log application start information
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${ElysiaApp.server?.hostname}:${ElysiaApp.server?.port}`
 );
 console.log(
-  `📚 Swagger documentation available at http://${app.server?.hostname}:${app.server?.port}/api/v1/docs`
+  `📚 Swagger documentation available at http://${ElysiaApp.server?.hostname}:${ElysiaApp.server?.port}/api/v1/docs`
 );
 console.log(
-  `🔌 WebSocket endpoint available at ws://${app.server?.hostname}:${app.server?.port}/ws/users`
+  `🔌 WebSocket endpoint available at ws://${ElysiaApp.server?.hostname}:${ElysiaApp.server?.port}/ws/users`
 );
