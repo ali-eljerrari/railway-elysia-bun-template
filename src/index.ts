@@ -83,7 +83,6 @@ app.get(
     connections: wsManager.getConnectionCount(),
   }),
   {
-    apiKey: API_KEY,
     detail: {
       summary: 'Health check endpoint',
       tags: ['General'],
